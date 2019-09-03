@@ -1,6 +1,6 @@
 # Applied Parallel Programming
 
-Sovled programming assignments and final project in applied parallel programming course (ECE408 at University of Illinois at Urbana-Champaign)
+Programming assignments and final project solved in applied parallel programming course (ECE408 at University of Illinois at Urbana-Champaign)
 
 ## Programming Assignments
 * MP1: Vector Addition
