@@ -1,4 +1,4 @@
-// Implementing matrix multiplication in CUDA
+// Implementing tiled matrix multiplication in CUDA
 // @Jiangyan Feng, jf8@illinois.edu
 
 #include <wb.h>
