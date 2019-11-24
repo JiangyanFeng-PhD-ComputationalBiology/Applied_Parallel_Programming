@@ -7,7 +7,8 @@ Programming assignments and final project solved in "Applied parallel programmin
 * MP2: Simple Matrix Multipy
 * MP3: Tiled Matrix Multiply
 * MP4: 3D Convolution
-* MP5: List Reduction
+* MP5.1: List Reduction
+* MP5.2: Parallel Scan
 * MP6: Histogramming
 * MP7: Spare Matrix Multiply
 
