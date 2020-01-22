@@ -1,0 +1,62 @@
+rai:
+  version: 0.2
+  image: illinoisimpact/ece408_mxnet_docker:amd64-gpu-latest-fa19
+resources:
+  cpu:
+    architecture: amd64
+  gpu:
+    architecture: volta
+    count: 1
+  network: false
+commands:
+  build:
+    - /bin/bash -c "cp -rv /ece408_src/* /mxnet/src/operator/custom" # copy golden files to mxnet source tree
+    - /bin/bash -c "cp -rv /src/* /build" # copy the project folder to /build so everything appears in the upload
+    - /bin/bash -c "for src in ece408_src/*; do cp -v $src /mxnet/src/operator/custom/.; done" # copy source files to mxnet tree
+    - nice -n20 make -C /mxnet # build mxnet
+    - pip2 install --user -e /mxnet/python   # install python bindings
+    #- /usr/bin/time nvprof python m1.1.py # execute code
+    #- python m1.1.py # execute code
+    #- /usr/bin/time nvprof python m1.2.py # execute code
+    #- python m1.2.py # execute code
+    #- /usr/bin/time nvprof python m2.1.py # execute code
+    #- python m2.1.py # execute code
+    #- /usr/bin/time nvprof -o timeline_m3_d1.nvprof python m3.1.py 100 # execute code
+    #- /usr/bin/time nvprof -o timeline_m3_d2.nvprof python m3.1.py 1000 # execute code
+    #- /usr/bin/time nvprof -o timeline_m3_d3.nvprof python m3.1.py 10000 # execute code
+
+    #- /usr/bin/time nvprof python m3.1.py 100 # execute code
+    #- /usr/bin/time nvprof python m3.1.py 1000 # execute code
+    #- /usr/bin/time nvprof python m3.1.py 10000 # execute code
+    #- nvprof --kernels "::forward:1" --analysis-metrics -o forward1_analysis_m3_d1.nvprof python m3.1.py 100 # execute code
+    #- nvprof --kernels "::forward:2" --analysis-metrics -o forward2_analysis_m3_d1.nvprof python m3.1.py 100 # execute code
+
+    #- nvprof --kernels "::forward:1" --analysis-metrics -o forward1_analysis_m3_d2.nvprof python m3.1.py 1000 # execute code
+    #- nvprof --kernels "::forward:2" --analysis-metrics -o forward2_analysis_m3_d2.nvprof python m3.1.py 1000 # execute code
+
+    #- nvprof --kernels "::forward:1" --analysis-metrics -o forward1_analysis_m3_d3.nvprof python m3.1.py 10000 # execute code
+    #- nvprof --kernels "::forward:2" --analysis-metrics -o forward2_analysis_m3_d3.nvprof python m3.1.py 10000 # execute code
+
+  
+    
+    #- /usr/bin/time python m4.1.py 100 # execute code
+    #- /usr/bin/time python m4.1.py 1000 # execute code
+    #- /usr/bin/time python m4.1.py 10000 # execute code
+    #- nvprof --kernels "::forward:1" --analysis-metrics -o forward1_analysis_m4_d1_o3.nvprof python m4.1.py 100 # execute code
+    #- nvprof --kernels "::forward:2" --analysis-metrics -o forward2_analysis_m4_d1_o3.nvprof python m4.1.py 100 # execute code
+
+    #- nvprof --kernels "::forward:1" --analysis-metrics -o forward1_analysis_m4_d2_o3.nvprof python m4.1.py 1000 # execute code
+    #- nvprof --kernels "::forward:2" --analysis-metrics -o forward2_analysis_m4_d2_o3.nvprof python m3.1.py 1000 # execute code
+
+    #- nvprof --kernels "::unroll_kernel:1" --analysis-metrics -o unroll1_analysis_m4_d3_o2.nvprof python m4.1.py 10000 # execute code
+    #- nvprof --kernels "::unroll_kernel:2" --analysis-metrics -o unroll2_analysis_m4_d3_o2.nvprof python m4.1.py 10000 # execute code
+
+    #- nvprof -o timeline_m4_d3_o2.nvprof python m4.1.py 10000 # execute code
+    #- /usr/bin/time python final.py 10000 # execute code
+    #- nvprof -o timeline_final_d3_tile1224.nvprof python final.py 10000
+    #- nvprof --kernels "::conv_layer_kernel:1" --analysis-metrics -o forward1_analysis_final_tile1224.nvprof python final.py 10000
+    #- nvprof --kernels "::conv_layer_kernel:2" --analysis-metrics -o forward2_analysis_final_tile1224.nvprof python final.py 10000
+    #- python final.py 100
+    #- python final.py 1000
+    - python final.py 10000
+
